@@ -16,7 +16,9 @@ export default function Home() {
 
   useEffect(() => {
     getCards().then(response => {
-      setCards(response.data);
+      response.json().then(data => {
+        setCards(data);
+      });
     });
     document.addEventListener('keydown', event => {
       event.key === 'Escape' && setActiveCard(null);

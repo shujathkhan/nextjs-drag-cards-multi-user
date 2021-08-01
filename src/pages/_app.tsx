@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 import '../styles/globals.css';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
+import { useEffect } from 'react';
 
 if (typeof window === 'undefined') {
   const { server } = require('../mocks/server');
