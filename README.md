@@ -1,6 +1,6 @@
 # We-Think
 
-This is a prototype of a collaborative draggable card experience, works only in Edge chromium and Firefox for now. Created using NextJS, MSW, PubNub and Docker.
+This is a prototype of a collaborative draggable card experience, works only in Edge chromium and Firefox for now. Created using NextJS, react-beautiful-dnd, MSW, PubNub and Docker.
 
 ## Getting Started
 
