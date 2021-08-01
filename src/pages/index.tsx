@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getCards, updateCards } from '../services';
 import Card from '../components/Card';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -12,10 +12,7 @@ export default function Home() {
   const [cards, setCards] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
   const pubnub = usePubNub();
-
   const [channels] = useState(['dragCards']);
-  const [messages, addMessage] = useState([]);
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
     getCards().then(response => {
