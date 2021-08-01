@@ -1,23 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getCards, updateCards } from '../services';
 import Card from '../components/Card';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { cloneDeep } from 'lodash';
+import { usePubNub } from 'pubnub-react';
 
 export default function Home() {
   const [cards, setCards] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
-  const dataRef = useRef<any>();
+  const pubnub = usePubNub();
+
+  const [channels] = useState(['dragCards']);
+  const [messages, addMessage] = useState([]);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     getCards().then(response => {
-      console.log(response.data);
       setCards(response.data);
     });
-
     document.addEventListener('keydown', event => {
       event.key === 'Escape' && setActiveCard(null);
     });
@@ -35,13 +38,21 @@ export default function Home() {
         cloneCards.splice(source.index, 1)[0],
       );
 
-      setCards(cloneCards);
-
       cloneCards.map((card, cardIndex) => (card.position = cardIndex));
-
+      pubnub.publish({ channel: channels[0], message: cloneCards });
       updateCards({ cards: cloneCards });
     }
   };
+
+  const handleDragUpdate = event => {
+    const cardsToUpdate = event.message;
+    setCards(cardsToUpdate);
+  };
+
+  useEffect(() => {
+    pubnub.addListener({ message: handleDragUpdate });
+    pubnub.subscribe({ channels });
+  }, [pubnub, channels]);
 
   return (
     <div className={styles.container}>

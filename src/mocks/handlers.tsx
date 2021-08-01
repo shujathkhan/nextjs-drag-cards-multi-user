@@ -36,4 +36,12 @@ export const handlers = [
     }
     return res(ctx.status(200));
   }),
+
+  rest.post(
+    'https://telemetry.nextjs.org/api/v1/record',
+    async (req, res, ctx) => {},
+  ),
+  rest.get('https://picsum.photos/**', async (req, res, ctx) => {}),
+  rest.get('https://ps**', async (req, res, ctx) => {}),
+  rest.get('http://ps**', async (req, res, ctx) => {}),
 ];

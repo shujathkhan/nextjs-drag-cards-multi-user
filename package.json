@@ -11,9 +11,12 @@
   "dependencies": {
     "axios": "^0.21.1",
     "next": "11.0.1",
+    "pubnub": "^4.32.1",
+    "pubnub-react": "^2.1.0",
     "react": "17.0.2",
     "react-beautiful-dnd": "^13.1.0",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "togetherjs-smas": "^0.1.0"
   },
   "devDependencies": {
     "@emotion/css": "^11.1.3",

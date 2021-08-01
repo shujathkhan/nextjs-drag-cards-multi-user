@@ -1,6 +1,12 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
-import { extractCritical } from "@emotion/server";
-import { resetServerContext } from "react-beautiful-dnd";
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from 'next/document';
+import { extractCritical } from '@emotion/server';
+import { resetServerContext } from 'react-beautiful-dnd';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -16,7 +22,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <style
-            data-emotion-css={this.props.ids.join(" ")}
+            data-emotion-css={this.props.ids.join(' ')}
             dangerouslySetInnerHTML={{ __html: this.props.css }}
           />
         </Head>
