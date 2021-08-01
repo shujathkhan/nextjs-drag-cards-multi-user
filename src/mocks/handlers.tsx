@@ -17,16 +17,20 @@ interface ICardRequestBody {
 export const handlers = [
   // Handles a GET /user request
   rest.get<Array<ICard>>('/cards', (req, res, ctx) => {
-    const users = db.card.getAll();
+    let cards = db.card.getAll();
 
-    if (!users) {
+    cards = cards.sort((a, b) =>
+      a.position < b.position ? -1 : a.position > b.position ? 1 : 0,
+    );
+
+    if (!cards) {
       return res(ctx.status(404));
     }
 
-    return res(ctx.json(users));
+    return res(ctx.json(cards));
   }),
 
-  rest.post<ICardRequestBody, Array<ICard>>('/cards', (req, res, ctx) => {
+  rest.post<ICardRequestBody>('/cards', (req, res, ctx) => {
     const { source, destination } = req.body;
 
     const updateSource = db.card.update({
@@ -55,7 +59,6 @@ export const handlers = [
     if (!(updateSource || updateDestination)) {
       return res(ctx.status(404));
     }
-    const updatedCards = db.card.getAll();
-    return res(ctx.json(updatedCards));
+    return res(ctx.status(200));
   }),
 ];

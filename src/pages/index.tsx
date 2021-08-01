@@ -1,17 +1,25 @@
+/* eslint-disable @next/next/no-img-element */
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { getCards, updateCards } from '../services';
 import Card from '../components/Card';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { cloneDeep } from 'lodash';
 
 export default function Home() {
   const [cards, setCards] = useState([]);
+  const [activeCard, setActiveCard] = useState(null);
+  const dataRef = useRef<any>();
 
   useEffect(() => {
     getCards().then(response => {
       console.log(response.data);
       setCards(response.data);
+    });
+
+    document.addEventListener('keydown', event => {
+      event.key === 'Escape' && setActiveCard(null);
     });
   }, []);
 
@@ -20,25 +28,22 @@ export default function Home() {
     if (source.index === destination.index) {
       return;
     } else {
-      let sourceCard = cards.find(card => card.position === source.index);
-      let destinationCard = cards.find(
+      let cloneCards = cloneDeep(cards);
+      cloneCards.splice(
+        destination.index,
+        0,
+        cloneCards.splice(source.index, 1)[0],
+      );
+
+      setCards(cloneCards);
+      let sourceCard = cloneCards.find(card => card.position === source.index);
+      let destinationCard = cloneCards.find(
         card => card.position === destination.index,
       );
 
-      updateCards({ source: sourceCard, destination: destinationCard }).then(
-        response => {
-          console.log(response.data);
-          setCards(response.data);
-        },
-      );
+      updateCards({ source: sourceCard, destination: destinationCard });
     }
   };
-
-  const sortedCards = cards
-    .slice()
-    .sort((a, b) =>
-      a.position < b.position ? -1 : a.position > b.position ? 1 : 0,
-    );
 
   return (
     <div className={styles.container}>
@@ -59,13 +64,14 @@ export default function Home() {
                 ref={provided.innerRef}
                 className={styles['cards-container']}
                 {...provided.droppableProps}>
-                {sortedCards?.map((card, index) => (
+                {cards?.map((card, index) => (
                   <Draggable
-                    key={card.id}
+                    key={index}
                     draggableId={'drop-' + index}
                     index={index}>
                     {(provided, snapshot) => (
                       <div
+                        onClick={() => setActiveCard(card.id)}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}>
@@ -74,10 +80,24 @@ export default function Home() {
                     )}
                   </Draggable>
                 ))}
+                {provided.placeholder}
               </div>
             )}
           </Droppable>
         </DragDropContext>
+        {activeCard && (
+          <>
+            <button
+              className={styles['card-full-overlay']}
+              onClick={() => setActiveCard(null)}></button>
+
+            <img
+              className={styles['card-full-img']}
+              src={`https://picsum.photos/id/${activeCard}/1000/600`}
+              alt={'Full scree Random Image'}
+            />
+          </>
+        )}
       </main>
     </div>
   );

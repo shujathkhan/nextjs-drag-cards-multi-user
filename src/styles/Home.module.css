@@ -24,3 +24,18 @@
   display: flex;
   flex-flow: row wrap;
 }
+
+.card-full-overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: #00000082;
+  border: none;
+}
+
+.card-full-img {
+  position: absolute;
+  box-shadow: 1px 1px 10px 1px black;
+}
