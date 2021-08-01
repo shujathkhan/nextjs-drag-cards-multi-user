@@ -36,12 +36,10 @@ export default function Home() {
       );
 
       setCards(cloneCards);
-      let sourceCard = cloneCards.find(card => card.position === source.index);
-      let destinationCard = cloneCards.find(
-        card => card.position === destination.index,
-      );
 
-      updateCards({ source: sourceCard, destination: destinationCard });
+      cloneCards.map((card, cardIndex) => (card.position = cardIndex));
+
+      updateCards({ cards: cloneCards });
     }
   };
 
@@ -73,6 +71,7 @@ export default function Home() {
                       <div
                         onClick={() => setActiveCard(card.id)}
                         ref={provided.innerRef}
+                        className={styles['card-draggable']}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}>
                         <Card key={card.title + '-' + index} {...card} />

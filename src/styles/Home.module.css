@@ -25,6 +25,10 @@
   flex-flow: row wrap;
 }
 
+.card-draggable {
+  height: fit-content;
+}
+
 .card-full-overlay {
   position: absolute;
   width: 100vw;
