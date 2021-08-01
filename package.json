@@ -16,16 +16,13 @@
     "react": "17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "17.0.2",
-    "togetherjs-smas": "^0.1.0"
+    "msw": "^0.33.1",
+    "@mswjs/storage": "^0.0.1"
   },
   "devDependencies": {
-    "@emotion/css": "^11.1.3",
-    "@emotion/server": "^11.4.0",
-    "@mswjs/storage": "^0.0.1",
     "@types/react": "^17.0.15",
     "eslint": "7.31.0",
-    "eslint-config-next": "11.0.1",
-    "msw": "^0.33.1"
+    "eslint-config-next": "11.0.1"
   },
   "msw": {
     "workerDirectory": "public"
