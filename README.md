@@ -26,7 +26,11 @@ The reason I chose to go with MSWjs, is because, it is a new framework I wanted 
 
 MSWjs does not work in NextJS without its node server running, and to top it all, it does not work in chrome at all. The mockServiceWorker kept hitting an infinite render loop, because of a nextjs support for node serviceWorker in Chrome. It works fine in Edge chromium and Firefox. In firefox I encountered another issue, mswjs supports only fetch api in firefox, it does not support axios. This is an [existing issue](https://github.com/mswjs/msw/issues/220) in mswjs. 
 
-[To be continued]
+The Drag and drop of cards, was a bit complicated as NextJS has a separate DOM structure. For that I had to hook it up with it `_document.tsx` use that to render the react-beautiful-dnd changes. The event used in hooking up the drag and drop is the onDragEnd, where I am using the source and target index position to swap positions. I wanted to use dragula for the drag and drop, as it provides real and shadow DOM manipulation, react-beautiful-dnd seemed to accomplish what I needed and it seemed straightforward.
+
+For the mult-user collaboration, I have used pubnub, as its an event driven system, it offer publish and subscribe to a particular channel. Initially, I though of using something like socketio, but pubnub seemed straighforward, and I really like modularism added.
+
+Overall this PoC helped me in gaining insight into the nextjs frontend tooling, how dnd works and event driven systems like pubnub.
 
 ## Learn More
 
