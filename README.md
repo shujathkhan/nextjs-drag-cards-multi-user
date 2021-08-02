@@ -34,6 +34,9 @@ Overall this PoC helped me in gaining insight into the nextjs frontend tooling, 
 
 ## Learn More
 
+- To learn more about [PubNub](https://www.pubnub.com/docs/quickstarts/javascript)
+- To learn more about [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+- To learn more about [MSWjs](https://mswjs.io/)
 - To learn more about Next.js, take a look at the following resources:
 
   - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
