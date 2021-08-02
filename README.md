@@ -7,7 +7,7 @@ This is a prototype of a collaborative draggable card experience, works only in 
 To run the application using docker, please have docker installed and run,
 
 ```bash
-docker run shujath/wethink:latest
+docker run -it -p 3000:3000 shujath/wethink:latest
 ```
 
 To run the cloned application, run the development server:
