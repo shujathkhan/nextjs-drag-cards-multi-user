@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "next": "11.1.3",
     "pubnub": "^4.32.1",
     "pubnub-react": "^2.1.0",
